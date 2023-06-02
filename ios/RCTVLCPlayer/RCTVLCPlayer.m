@@ -31,6 +31,7 @@ static NSString *const playbackRate = @"rate";
     NSDictionary * _source;
     BOOL _paused;
     BOOL _started;
+    BOOL _allowsExternalPlayback;
     NSString * _subtitleUri;
 
     NSDictionary * _videoInfo;
@@ -41,7 +42,7 @@ static NSString *const playbackRate = @"rate";
 {
     if ((self = [super init])) {
         _eventDispatcher = eventDispatcher;
-
+        _allowsExternalPlayback = YES;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationWillResignActive:)
                                                      name:UIApplicationWillResignActiveNotification
@@ -55,6 +56,11 @@ static NSString *const playbackRate = @"rate";
     }
 
     return self;
+}
+
+- (void)setAllowsExternalPlayback:(BOOL)allowsExternalPlayback
+{
+    _allowsExternalPlayback = allowsExternalPlayback;
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification
@@ -71,8 +77,11 @@ static NSString *const playbackRate = @"rate";
 
 - (void)applyModifiers
 {
-    if(!_paused)
+    if(!_paused) {
         [self play];
+    }
+
+    [self setAllowsExternalPlayback:_allowsExternalPlayback];
 }
 
 - (void)setPaused:(BOOL)paused

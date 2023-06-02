@@ -191,6 +191,7 @@ VLCPlayer.propTypes = {
   playInBackground: PropTypes.bool,
   playWhenInactive: PropTypes.bool,
   resizeMode: PropTypes.string,
+  allowsExternalPlayback: PropTypes.bool,
   poster: PropTypes.string,
   repeat: PropTypes.bool,
   muted: PropTypes.bool,

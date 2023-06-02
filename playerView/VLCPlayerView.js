@@ -32,6 +32,7 @@ export default class VLCPlayerView extends Component {
     super(props);
     this.state = {
       paused: true,
+      allowsExternalPlayback: true,
       isLoading: true,
       loadingSuccess: false,
       isFull: false,
